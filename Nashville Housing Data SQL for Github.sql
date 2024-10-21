@@ -70,12 +70,14 @@ FROM PortfolioProject.dbo.NashvilleHousing
 
 ALTER TABLE PortfolioProject.dbo.NashvilleHousing
 Add PropertySplitAddress Nvarchar(255);
+
 Update PortfolioProject.dbo.NashvilleHousing
 SET PropertySplitAddress = SUBSTRING (PropertyAddress, 1, CHARINDEX(',', PropertyAddress) -1 ) 
 -- add the column PropertySplitAddress = to the substring before the comma
 
 ALTER TABLE PortfolioProject.dbo.NashvilleHousing
 Add PropertySplitCity Nvarchar(255);
+
 Update PortfolioProject.dbo.NashvilleHousing
 SET PropertySplitCity = SUBSTRING (PropertyAddress, CHARINDEX(',', PropertyAddress) + 1 , LEN(PropertyAddress))
 -- add the column PropertySplitCity = to the substring after the comma
@@ -97,12 +99,12 @@ FROM PortfolioProject.dbo.NashvilleHousing
 ALTER TABLE PortfolioProject.dbo.NashvilleHousing
 Add OwnerSplitAddress1 Nvarchar(255), 
 	OwnerSplitCity2 Nvarchar(255), 
-	OwnerSplitState3 Nvarchar(255); -- has to run this column first
+	OwnerSplitState3 Nvarchar(255); -- has to run this chunk first
 
 Update PortfolioProject.dbo.NashvilleHousing
-SET OwnerSplitAddress1 = PARSENAME(REPLACE(OwnerAddress, ',', '.' ), 3), 
-	OwnerSplitCity2 = PARSENAME(REPLACE(OwnerAddress, ',', '.' ), 2),
-	OwnerSplitState3 = PARSENAME(REPLACE(OwnerAddress, ',', '.' ), 1)
+SET OwnerSplitAddress1 = PARSENAME(REPLACE(OwnerAddress, ',' , '.' ), 3), 
+	OwnerSplitCity2 = PARSENAME(REPLACE(OwnerAddress, ',' , '.' ), 2),
+	OwnerSplitState3 = PARSENAME(REPLACE(OwnerAddress, ',' , '.' ), 1)
 
 SELECT *
 FROM PortfolioProject.dbo.NashvilleHousing
@@ -138,6 +140,3 @@ FROM PortfolioProject.dbo.NashvilleHousing  -- owner split address is more usefu
 
 ALTER TABLE PortfolioProject.dbo.NashvilleHousing
 DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress, SaleDate
-
-ALTER TABLE PortfolioProject.dbo.NashvilleHousing
-DROP COLUMN OwnerSplitAddress, OwnerSplitCity, OwnerSplitState
