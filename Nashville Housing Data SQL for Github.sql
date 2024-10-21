@@ -1,5 +1,5 @@
 /*
-Cleaning the data in SQL queries
+Cleaning the data in Microsoft Server SQL
 */
 
 
